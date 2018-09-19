@@ -18,6 +18,9 @@ class Map {
         this.colorScale = d3.scaleOrdinal()
             .domain(["high", "above", "average", "below", "low"])
             .range(['#0D4673', '#3580A3', '#969696', '#E07242', '#C2421F']);
+        this.povertyScale = d3.scaleLinear()
+            .domain([0, 22, 44])
+            .range(['#ffffff',"#999999",'#333333']);
     }
 
     /********** PRIVATE METHODS **********/
@@ -188,7 +191,8 @@ class Map {
             })
             .style('stroke-width', '0')
             .style('fill', function(d) {
-                return self.colorScale(d.properties.lifex_quantize);
+                if (geo != "poverty") { return self.colorScale(d.properties.lifex_quantize); }
+                else { return self.povertyScale(d.properties.lifex_poverty); }
             });
 
         //Draw place borders
@@ -285,7 +289,7 @@ class Map {
             y = centroid[1];
             centered = d;
             stroke = 0.2;
-            // $(self.target + ' .reset').show();
+            $(self.target + ' .reset').show();
             // } 
             // else {
             //   x = width / 2;
@@ -305,23 +309,19 @@ class Map {
                 .style('stroke-width', '0.2px');
 
 
-            // $('.reset').on('click touch', function(event) {
-            //     x = width / 2;
-            //     y = height / 2;
-            //     k = 1;
-            //     centered = null;
-            //     $(this).hide();
-            //     stroke = 1.5;
-            //     $("#tip").hide();
-            //     $(".key").show();
-            //     // self.g.selectAll('path')
-            //     //     .classed('active', centered && function(d) { return d === centered; });
-            //     self.g.transition()
-            //         .duration(300)
-            //         .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')')
-            //         .style('stroke-width', stroke / k + 'px');
-            //     event.stopPropagation();
-            // });
+            $('.reset').on('click touch', function(event) {
+                x = width / 2;
+                y = height / 2;
+                k = 1;
+                centered = null;
+                $(this).hide();
+                stroke = 1.5;
+                d3.select("#mapper svg g").transition()
+                    .duration(300)
+                    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')')
+                    .style('stroke-width', stroke / k + 'px');
+                event.stopPropagation();
+            });
 
         }
 

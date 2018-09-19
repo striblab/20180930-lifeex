@@ -57,15 +57,10 @@ a {
 a:hover {
   color:#036;
 }
-#down, #districtList {
-  display:none;
-}
-.sort-link {
-  padding:4px;
-}
-.sort-link:hover {
-  cursor:pointer;
-  opacity:0.5;
+.stackmap {
+  max-height:300px;
+  overflow-y:hidden !important;
+  margin-bottom:10px;
 }
 .map {
   width:100%;
@@ -106,6 +101,9 @@ a:hover {
 .hidden {
   opacity:0 !important;
   display:none !important;
+}
+.map {
+  position:relative;
 }
 .reset {
   display:none;
@@ -196,7 +194,7 @@ section.body p {
   fill-opacity:0 !important;
   stroke: white !important;
 }
-#mapperMetro .county {
+#mapperMetro .county, #mapperPoverty .county {
   fill-opacity:0 !important;
   stroke: white !important;
   stroke-width: 0.3px !important;
@@ -212,6 +210,9 @@ section.body p {
   stroke:#000000 !important;
   stroke-width:0.3px !important;
   cursor:pointer;
+}
+#mapperPoverty {
+  pointer-events:none;
 }
 .faded {
   opacity:1 !important;
