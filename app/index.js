@@ -16,6 +16,7 @@ import Chart from './chart.js';
 const map = new Map("#mapper");
 const map2 = new Map("#mapperMetro");
 const map3 = new Map("#mapperPoverty");
+const map4 = new Map("#mapperTC");
 const chart = new Chart("#regionChart");
 
 $.urlParam = function(name) {
@@ -38,6 +39,7 @@ if (selected == "all") {
 }
 
 map.render(null,"mn",8);
-map2.render("P2743000","met",9);
+map2.render("P2743000","met",3.5);
 map3.render("P2743000","poverty",9);
+map4.render("P2720420","tc",16);
 chart.render();

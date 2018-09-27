@@ -24,8 +24,19 @@ a {
   padding-bottom:10px;
   text-align:left;
 }
+.legendBar {
+  width:20%;
+  height:10px;
+  display:inline-block;
+  font-size:0.7em;
+  margin-top:-5px;
+}
 .byline a {
   color: #888 !important;
+}
+.chartTitle {
+  font-weight:900;
+  font-size:1.3em;
 }
 #menu {
   width:100%;
@@ -174,6 +185,10 @@ section.body p {
   stroke: white !important;
   stroke-width: 0.03px !important;
 }
+#mapperTC .place, #mapperTC .places {
+  stroke: black !important;
+  stroke-width: 0.1px !important;
+}
 .place:hover {
   opacity:0.8;
   stroke:#000000 !important;
@@ -194,12 +209,16 @@ section.body p {
   fill-opacity:0 !important;
   stroke: white !important;
 }
-#mapperMetro .county, #mapperPoverty .county {
+#mapperMetro .county, #mapperPoverty .county,   {
   fill-opacity:0 !important;
   stroke: white !important;
   stroke-width: 0.3px !important;
   pointer-events:none !important;
 }
+#mapperTC {
+  pointer-events:none !important;
+}
+
 #mapper .county {
   fill-opacity:0 !important;
   stroke: white !important;
@@ -218,6 +237,11 @@ section.body p {
   opacity:1 !important;
   fill-opacity:1 !important;
   fill:#eeeeee !important;
+}
+.blanked {
+  pointer-events:none !important;
+  fill:#ffffff !important;
+  fill-opacity: 1 !important;
 }
 .tooltip {
   font-family: "Benton Sans", Helvetica, Arial, sans-serif;
@@ -282,17 +306,12 @@ section.body p {
 .legendary {
   padding:4px;
   color: #ffffff;
-  font-weight:bold;
+  font-weight:900;
   border-radius: 5px;
-  padding: 0 7px;
   margin-bottom: 3px;
 }
-.key_legend {
-  width:10px;
-  height:10px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-bottom:2px;
+.ticks {
+  margin-top:-10px;
 }
 /* Red color ramp */
 .red1 {
