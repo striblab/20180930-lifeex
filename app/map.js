@@ -15,9 +15,12 @@ class Map {
         this.g = this.svg.append("g");
         this.zoomed = false;
         //   this.scaled = $(target).width()/520;
-        this.colorScale = d3.scaleOrdinal()
-            .domain(["high", "above", "average", "below", "low"])
-            .range(['#0D4673', '#3580A3', '#969696', '#E07242', '#C2421F']);
+        this.colorScale = d3.scaleLinear()
+            .domain([0, 65, 79, 81, 82, 85, 92])
+            .range(['#822010','#C2421F',"#E07242",'#F2D2A4','#C7E5B5','#299E3D','#299E3D']);
+        // this.colorScale = d3.scaleOrdinal()
+        //     .domain(["high", "above", "average", "below", "low"])
+        //     .range(['#0D4673', '#3580A3', '#969696', '#E07242', '#C2421F']);
         this.povertyScale = d3.scaleLinear()
             .domain([0, 22, 44])
             .range(['#ffffff',"#999999",'#333333']);
@@ -184,6 +187,10 @@ class Map {
             .enter().append('path')
             .attr('d', path)
             .attr('class', function(d) {
+                if (geo == "met") { 
+                    if (d.properties.lifex_region == "metro") { return "tract"; }
+                    else { return "blanked"; }
+                }
                 return 'tract';
             })
             .attr('id', function(d) {
@@ -191,8 +198,11 @@ class Map {
             })
             .style('stroke-width', '0')
             .style('fill', function(d) {
-                if (geo != "poverty") { return self.colorScale(d.properties.lifex_quantize); }
-                else { return self.povertyScale(d.properties.lifex_poverty); }
+                if (d.properties.lifex_e0 != null) {
+                    if (geo != "poverty") { return self.colorScale(d.properties.lifex_e0); }
+                    else { return self.povertyScale(d.properties.lifex_poverty); }
+                }
+                else { return "#ffffff"; }
             });
 
         //Draw place borders
@@ -202,6 +212,13 @@ class Map {
             .data(topojson.feature(places, places.objects.convert).features)
             .enter().append('path')
             .attr("class", "place")
+            .attr('class', function(d) {
+                // if (geo == "tc") { 
+                //     if (d.properties.NAME == "Minneapolis" || d.properties.NAME == "St. Paul") { return "place"; }
+                //     else { return "blanked"; }
+                // }
+                return 'place';
+            })
             .attr("id", function(d) {
                 return "P" + d.properties.GEOID + geo;
             })
